@@ -9,3 +9,7 @@ class CreateNewTask(StatesGroup):
     members = State()
     labels = State()
     date = State()
+
+
+class CreateNewList(StatesGroup):
+    board = State()
