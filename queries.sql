@@ -1,21 +1,21 @@
 CREATE TABLE boards (
     id SERIAL PRIMARY KEY,
-    name VARCHAR  (500) NOT NULL,
+    name VARCHAR  (300) NOT NULL,
     board_trello_id VARCHAR  (50) UNIQUE NOT NULL
 );
 
 CREATE TABLE lists (
     id SERIAL PRIMARY KEY,
-    name VARCHAR (500) NOT NULL,
+    name VARCHAR (300) NOT NULL,
     list_trello_id VARCHAR (50) UNIQUE NOT NULL,
     board_id INTEGER REFERENCES boards (id)
 );
 
 CREATE TABLE cards (
     id SERIAL PRIMARY KEY,
-    name VARCHAR (500) NOT NULL,
+    name VARCHAR (300) NOT NULL,
     card_trello_id VARCHAR  (50) UNIQUE NOT NULL,
-    url VARCHAR (500) NOT NULL,
+    url VARCHAR (300) NOT NULL,
     Description text,
     lists_id INTEGER REFERENCES lists (id)
 );
