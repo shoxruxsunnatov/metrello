@@ -28,14 +28,14 @@ CREATE TABLE members (
 );
 
 CREATE TABLE cards_members (
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     card_id INTEGER REFERENCES cards (id),
     member_id INTEGER REFERENCES members (id),
     primary key  (card_id, member_id)
 );
 
 CREATE TABLE board_members (
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     board_id INTEGER REFERENCES boards (id) UNIQUE NOT NULL ,
     member_id INTEGER REFERENCES members (id)
 );
@@ -48,7 +48,7 @@ CREATE TABLE labels (
 );
 
 CREATE TABLE cards_labels (
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     card_id INTEGER REFERENCES cards (id),
     labels_id INTEGER REFERENCES labels (id),
     primary key (card_id, labels_id)
