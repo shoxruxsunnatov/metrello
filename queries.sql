@@ -43,7 +43,7 @@ CREATE TABLE board_members (
 CREATE TABLE labels (
     id SERIAL PRIMARY KEY,
     name VARCHAR CHECK ( name > '0' ),
-    label_trello_id VARCHAR  NOT NULL UNIQUE,
+    label_trello_id VARCHAR (50) NOT NULL UNIQUE,
     board_id INTEGER REFERENCES boards (id)
 );
 
