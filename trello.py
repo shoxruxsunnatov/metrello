@@ -70,8 +70,7 @@ class TrelloManager:
             params=self.credentials()
         )
         if response.status_code == 200:
-            # for i in json.loads(response.text):
-            #     print(i)
+
             return json.loads(response.text)
 
     def get_board_members(self, board_id):
