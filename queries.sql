@@ -16,7 +16,7 @@ CREATE TABLE cards (
     name VARCHAR (300) NOT NULL,
     card_trello_id VARCHAR  (50) UNIQUE NOT NULL,
     url VARCHAR (300) NOT NULL,
-    Description text,
+    description text,
     lists_id INTEGER REFERENCES lists (id)
 );
 
