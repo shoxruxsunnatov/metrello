@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,13 +19,20 @@ class TrelloManager:
             "Accept": "application/json"
         }
 
+    @staticmethod
+    def get_list_id_with_name(list_data, name):
+        try:
+            return [data.get("id") for data in list_data if data.get("name") == name][0]
+        except IndexError as e:
+            print(e)
+
     def credentials(self):
         return {
-            "key": self.KEY,
-            "token": self.TOKEN
+            'key': self.KEY,
+            'token': self.TOKEN
         }
 
-    def get_member(self):
+    def get_member_id(self):
         url = f"https://api.trello.com/1/members/{self.username}"
 
         response = requests.request(
@@ -33,8 +41,9 @@ class TrelloManager:
             headers=self.base_headers(),
             params=self.credentials()
         )
+
         if response.status_code == 200:
-            return json.loads(response.text)
+            return json.loads(response.text).get("id")
 
     def get_boards(self):
         url = f"https://api.trello.com/1/members/{self.username}/boards"
@@ -45,6 +54,7 @@ class TrelloManager:
             headers=self.base_headers(),
             params=self.credentials()
         )
+
         if response.status_code == 200:
             return json.loads(response.text)
 
@@ -57,6 +67,7 @@ class TrelloManager:
             headers=self.base_headers(),
             params=self.credentials()
         )
+
         if response.status_code == 200:
             return json.loads(response.text)
 
@@ -69,30 +80,23 @@ class TrelloManager:
             headers=self.base_headers(),
             params=self.credentials()
         )
-        if response.status_code == 200:
 
+        if response.status_code == 200:
             return json.loads(response.text)
 
-    def get_board_members(self, board_id):
+    def get_board_id_with_name(self, name):
+        try:
+            return [board.get("id") for board in self.get_boards() if board.get("name") == name][0]
+        except IndexError as e:
+            print(e)
 
+    def get_board_members(self, board_id):
         url = f"https://api.trello.com/1/boards/{board_id}/memberships"
 
         response = requests.request(
             "GET",
             url,
             headers=self.base_headers(),
-            params=self.credentials()
-        )
-
-        if response.status_code == 200:
-            return json.loads(response.text)
-
-    def get_labels_board(self, board_id):
-        url = f"https://api.trello.com/1/boards/{board_id}/labels"
-
-        response = requests.request(
-            "GET",
-            url,
             params=self.credentials()
         )
 
